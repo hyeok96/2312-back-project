@@ -80,10 +80,15 @@ public class AuthService {
             UserPrincipalEntity userPrincipalEntity = userPrincipalRepository.findByEmailFetchJoin(email)
                     .orElseThrow(() -> new NotFoundException("UserPrincipal을 찾을 수 없습니다."));
 
+            UserEntity userEntity = userRepository.findByEmail(email).orElseThrow(
+                    () -> new NotFoundException("userEntity를 찾을 수 없습니다")
+            );
+
+
             List<String> roles = userPrincipalEntity.getUserPrincipalRoles()
                     .stream().map(UserPrincipalRolesEntity::getRolesEntity).map(RolesEntity::getName).collect(Collectors.toList());
 
-            return jwtProvider.createToken(email, roles);
+            return jwtProvider.createToken(userEntity, roles);
 
         } catch (Exception e) {
             throw new NotFoundException("로그인 할 수 없습니다");

@@ -7,6 +7,7 @@ import com.github.backproject.respository.userPrincipal.UserPrincipalRepository;
 import com.github.backproject.respository.userPrincipalRoles.UserPrincipalRolesEntity;
 import com.github.backproject.service.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 @Primary
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class CustomUserDetailsService implements UserDetailsService {
 
     private final UserPrincipalRepository userPrincipalRepository;
